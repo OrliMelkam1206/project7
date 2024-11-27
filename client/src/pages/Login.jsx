@@ -18,6 +18,7 @@ export default function Login() {
     async function handleSubmit(e) {
         e.preventDefault();
         const user = { username: username, password: password };
+        console.log('user: ', user);
         const result = await fetch(`${API_URL}/login`, {
             method: "POST",
             headers: {
@@ -26,14 +27,20 @@ export default function Login() {
             },
             body: JSON.stringify(user),
         });
-        console.log(result.status);
-        if (result.status === 400) {
-            setError("username or password are incorrect");
-        } else if (result.status === 404) {
-            setError("something went wrong");
-        } else {
+        
+        console.log('result: ', result, result.status);
+        if (result.status !== 200) {
+            setError(await result.text());
+        } 
+        //else if (result.status === 404) {
+        //     setError("something went wrong");
+        // } 
+        else {
             setError(null);
-            localStorage.setItem("currentUser", JSON.stringify({id: result.id, name: result.name, username: result.username, email: result.email}))
+            console.log("re: " , result)
+            const data = await result.json();
+            console.log('data: ', data);
+            localStorage.setItem("currentUser", JSON.stringify({id: data.id, name: data.name, username: data.username, email: data.email}))
             navigate(`/home/${user.username}`);
         }
     }

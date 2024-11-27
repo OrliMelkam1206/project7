@@ -43,12 +43,12 @@ export default function Register() {
                     body: JSON.stringify(newUser),
                 };
                 const result = await fetch(`${API_URL}/register`, postOption);
-                if(result.status === 400) throw await result.text();
-                // if (!result.ok) throw await result.text();
+                // if(result.status === 400) throw await result.text();
+                if (!result.ok) throw await result.text();
                 const data = await result.json();
                 if (data) {
                     setError(null);
-                    navigate(`/${username}`);
+                    navigate(`/home/${username}`);
                 }
             } catch (err) {
                 console.log(err);
