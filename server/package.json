@@ -13,5 +13,10 @@
     "jade": "~1.11.0",
     "morgan": "~1.9.1",
     "mysql": "^2.18.1"
-  }
+  },
+  "main": "app.js",
+  "devDependencies": {},
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }

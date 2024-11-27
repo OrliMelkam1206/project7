@@ -2,5 +2,6 @@
     "id": "INT AUTO_INCREMENT PRIMARY KEY",
     "title": "VARCHAR(255)",
     "user_id": "INT",
-    "body": "VARCHAR(255)"
+    "body": "VARCHAR(255)",
+    "post_id": "int"
 }
