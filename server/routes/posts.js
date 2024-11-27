@@ -26,8 +26,9 @@ router.post('/', function(req, res, next) {
     const sql = `INSERT INTO post (title, user_id, body) VALUES ('${newPost.title}', ${newPost.user_id}, '${newPost.body}')`;
     con.query(sql, function (err, result) {
         if (err) return res.status(400).send(err.message);
+        console.log('result: ', result.insertId);
         console.log("post post");
-        res.send(result);
+        res.send(result.insertId);
     });
 })
 
