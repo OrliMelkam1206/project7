@@ -6,9 +6,9 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/login');
-var usersRouter = require('./routes/users');
-var todosRouter = require('./routes/todos');
-var postsRouter = require('./routes/posts');
+// var usersRouter = require('./routes/users');
+// var todosRouter = require('./routes/todos');
+// var postsRouter = require('./routes/posts');
 var commentsRouter = require('./routes/comments');
 
 
@@ -27,21 +27,21 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/todos', todosRouter);
-app.use('/posts', postsRouter);
+// app.use('/users', usersRouter);
+// app.use('/todos', todosRouter);
+// app.use('/posts', postsRouter);
 app.use('/comments', commentsRouter);
 app.use('/login', loginRouter);
 
 
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
