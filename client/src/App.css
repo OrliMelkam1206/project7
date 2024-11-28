@@ -1,7 +1,8 @@
 #root {
-  max-width: 1280px;
+  min-width: 100vw;
+  min-height: 100vh;
   margin: 0 auto;
-  padding: 2rem;
+  /* padding: 2rem; */
   text-align: center;
 }
 
@@ -11,9 +12,11 @@
   will-change: filter;
   transition: filter 300ms;
 }
+
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
+
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
@@ -22,6 +25,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -39,4 +43,143 @@
 
 .read-the-docs {
   color: #888;
+}
+
+.posts-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+.post-div {
+  background-color: #ffeff5;
+  width: 30vw;
+  margin-top: 10px;
+  border-radius: 20px;
+  min-height: 120px;
+}
+
+.post-div label {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.post-buttons {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-evenly;
+}
+/* .post-buttons button{
+  padding: 10px;
+  font-size: 15px;
+} */
+
+.comments-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.comment-div {
+  background-color: whitesmoke;
+  width: 30vw;
+  margin-top: 10px;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+/* Style the navbar container */
+.navbar {
+  display: flex;
+  justify-content: space-evenly;
+  /* Center the items horizontally */
+  align-items: center;
+  /* Center the items vertically */
+  background-color: #f8b7d0;
+  /* Soft pink background */
+  padding: 10px 0;
+  /* Padding around the navbar */
+  position: sticky;
+  /* Keep the navbar fixed on top when scrolling */
+  top: 0;
+  width: 100%;
+  /* Full width */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  /* Soft shadow for depth */
+}
+
+/* Style each button */
+.navbar button {
+  background-color: #ffffff;
+  /* White background for buttons */
+  color: #f8b7d0;
+  /* Pink text */
+  border: 2px solid #f8b7d0;
+  /* Border matching the background */
+  padding: 10px 20px;
+  /* Padding inside buttons */
+  margin: 0 15px;
+  /* Space between buttons */
+  border-radius: 25px;
+  /* Rounded corners for a soft look */
+  font-size: 16px;
+  /* Font size */
+  cursor: pointer;
+  /* Pointer cursor on hover */
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+  /* Smooth transitions */
+}
+
+/* Button hover effect */
+.navbar button:hover {
+  background-color: #f8b7d0;
+  /* Change background to pink on hover */
+  color: #ffffff;
+  /* Text turns white */
+  transform: scale(1.05);
+  /* Slightly enlarge the button on hover */
+}
+
+/* Active effect (when clicked) */
+.navbar button:active {
+  transform: scale(0.98);
+  /* Slight shrink when clicked */
+  background-color: #f4a6c9;
+  /* Slightly darker pink when pressed */
+  color: #ffffff;
+  /* Keep text white */
+}
+
+/* Responsive styling for smaller screens */
+@media (max-width: 768px) {
+  .navbar {
+    /* Stack buttons vertically on smaller screens */
+    padding: 15px;
+    /* Increase padding for a nicer layout */
+  }
+
+  .navbar button {
+    width: 100%;
+    /* Make buttons full width on mobile */
+    margin: 10px 0;
+    /* Vertical margin between buttons */
+  }
+}
+
+.login-form {
+  height: 79vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 30vw;
+  background-color: #ffcde0;
+  align-items: center;
+  margin-top: 50px;
+  margin-left: 33vw;
+}
+
+.inside-form {
+  width: 15vw;
 }

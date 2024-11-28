@@ -11,6 +11,7 @@ var todosRouter = require('./routes/todos');
 var postsRouter = require('./routes/posts');
 var commentsRouter = require('./routes/comments');
 var registerRouter = require('./routes/register')
+var usersRouter = require('./routes/users')
 
 
 
@@ -33,6 +34,8 @@ app.use('/posts', postsRouter);
 app.use('/comments', commentsRouter);
 app.use('/login', loginRouter);
 app.use('/register', registerRouter);
+app.use('/users', usersRouter);
+
 
 
 

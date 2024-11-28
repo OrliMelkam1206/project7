@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import Comments from "./Comments";
 
-export default function Post({ item, setError }) {
+export default function Post({ item, handleSaveChanges, handledeleteItem }) {
   const [title, setTitle] = useState(item.title);
   const [isEdited, setIsEdited] = useState(false);
   const [showBody, setShowBody] = useState(false);
   const [showComments, setShowComments] = useState(false);
+  const [userId, setUserId] = useState(JSON.parse(localStorage.getItem("currentUser")).id);
 
-  function handleSaveChanges() {
-    edit("posts", item, title, setError, setIsEdited);
-  }
+
 
   return (
     <div className="post-div" key={item.id}>
@@ -30,16 +29,16 @@ export default function Post({ item, setError }) {
       ) : null}
 
       <div className="post-buttons">
-        {!isEdited ? (
+        {item.user_id === userId && (!isEdited ? (
           <button onClick={() => setIsEdited(true)}>edit</button>
         ) : (
-          <button onClick={handleSaveChanges}>save</button>
-        )}
+          <button onClick={(e) => handleSaveChanges(e, item.id, title, setIsEdited)}>save</button>
+        ))}
         <button onClick={() => setShowComments((prev) => !prev)}>
           Comments
         </button>
         <button onClick={() => setShowBody((prev) => !prev)}>Body</button>
-        {/* <button onClick={() => handledeleteItem(item)}>delete</button> */}
+        {userId === item.user_id && <button onClick={() => handledeleteItem(item)}>delete</button>}
       </div>
     </div>
   );

@@ -27,20 +27,20 @@ export default function Login() {
             },
             body: JSON.stringify(user),
         });
-        
+
         console.log('result: ', result, result.status);
         if (result.status !== 200) {
             setError(await result.text());
-        } 
+        }
         //else if (result.status === 404) {
         //     setError("something went wrong");
         // } 
         else {
             setError(null);
-            console.log("re: " , result)
+            console.log("re: ", result)
             const data = await result.json();
             console.log('data: ', data);
-            localStorage.setItem("currentUser", JSON.stringify({id: data.id, name: data.name, username: data.username, email: data.email}))
+            localStorage.setItem("currentUser", JSON.stringify({ id: data.id, name: data.name, username: data.username, email: data.email }))
             navigate(`/home/${user.username}`);
         }
     }
@@ -48,15 +48,16 @@ export default function Login() {
     return (
         <form className="login-form" onSubmit={handleSubmit}>
             <h1 className="inside-form">Login</h1>
-            <label className="inside-form">Username:</label><br/>
+            <label className="inside-form">Username:</label>
             <input
                 className="inside-form"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
             />
             <br />
-            <label className="inside-form">Password:</label><br/>
+            <label className="inside-form">Password:</label>
             <input
+                type='password'
                 className="inside-form"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}

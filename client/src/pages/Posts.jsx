@@ -9,28 +9,78 @@ export default function Posts() {
     const [add, setAdd] = useState(false);
     const [newTitle, setNewTitle] = useState("");
     const [newBody, setNewBody] = useState("");
-    const [searchInput, setSearchInput] = useState("");
-
+    const [startIndex, setStartIndex] = useState(0);
+    const [showMore, setShowMore] = useState(true);
     const userId = JSON.parse(localStorage.getItem("currentUser")).id;
 
     useEffect(() => {
         (async () => {
-            const result = await fetch(`${API_URL}/posts?user_id=${userId}`)
-            console.log('result: ', result);
-            const data = await result.json();
-            setPosts(data);
+            fetchPostsData()
+            // const result = await fetch(`${API_URL}/posts`)
+            // console.log('result: ', result);
+            // const data = await result.json();
+            // setPosts(data);
         })()
     }, []);
 
-    // function handledeleteItem(item) {
-    //     handleDelete(posts, item, setPosts, "posts", setError);
-    // }
+    const fetchPostsData = async () => {
+        try {
+            console.log("in")
+            console.log('startIndex: ', startIndex);
+            const response = await fetch(
+                `${API_URL}/posts?_start=${startIndex}&_limit=6`
+            );
+            if (!response.ok) throw Error("Did not receive expected data");
+            const data = await response.json();
+            console.log('data: ', data);
+            if (data.length === 0 && posts.length !== 0) {
+                setShowMore(false);
+                setError("There is no more posts");
+            } else {
+                if (data.length === 0 && posts.length === 0) {
+                    setShowMore(false);
+                    setError("There is no posts");
+                }
+                else {
+                    if (posts.length === 0) {
+                        setPosts(data);
+                    } else {
+                        setPosts((prev) => [...prev, ...data]);
+                    }
+                    setError(null);
+                    setStartIndex((prev) => prev + 3);
+                }
+            }
+        } catch (err) {
+            setError(err.message);
+        }
+    };
+
+    async function handledeleteItem(post) {
+        try {
+            const deleteOption = {
+                method: "DELETE",
+            };
+            const response = await fetch(`${API_URL}/posts/${post.id}`, deleteOption);
+            console.log('response: ', response);
+
+            if (!response.ok) throw await response.text();
+
+            const newList = posts.filter((item) => item.id !== post.id);
+            setPosts(newList);
+            setError(null);
+        }
+        catch (err) {
+            console.log('err: ', err);
+            setError(err);
+        }
+    }
 
     async function addPost(e) {
         try {
             e.preventDefault();
             const newPost = {
-                userId: parseInt(userId),
+                user_id: parseInt(userId),
                 title: newTitle,
                 body: newBody,
             };
@@ -48,7 +98,7 @@ export default function Posts() {
             newPosts.push({
                 id: data.insertId,
                 title: newTitle,
-                userId: parseInt(userId),
+                user_id: parseInt(userId),
                 body: newBody
             })
             console.log('newPosts: ', newPosts);
@@ -59,6 +109,30 @@ export default function Posts() {
             setError(err)
         }
 
+    }
+    async function handleSaveChanges(e, id, title, setIsEdited) {
+        try {
+            e.preventDefault();
+            const patchOption = {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ title: title }),
+            };
+            const result = await fetch(`${API_URL}/posts/${id}`, patchOption);
+            console.log('result: ', result);
+            if (result.status !== 200) throw await result.text();
+            // const data = await result.json();
+            // console.log('data: ', data);
+            const newPosts = posts;
+            const postIndex = posts.findIndex(item => item.id === id);
+            newPosts[postIndex].title = title;
+            console.log('newPosts: ', newPosts);
+            setError(null);
+            setPosts(newPosts);
+            setIsEdited(false)
+        } catch (err) {
+            setError(err)
+        }
     }
 
 
@@ -88,12 +162,14 @@ export default function Posts() {
                             key={item.id}
                             item={item}
                             // handledeleteItem={handledeleteItem}
-                            setError={setError}
+                            handleSaveChanges={handleSaveChanges}
+                            handledeleteItem={handledeleteItem}
                         />
                     );
                 })
                 }
             </main>
+            {showMore && <button onClick={fetchPostsData}>showMore</button>}
         </>
     );
 }

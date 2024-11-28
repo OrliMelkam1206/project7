@@ -60,23 +60,14 @@ export default function Register() {
         <form className="login-form" method="POST" onSubmit={handleSubmit}>
             <h1>Sign Up</h1>
             <label>Name:</label>
-            <br />
             <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
-            <br />
             <label>Username:</label>
-            <br />
             <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
-            <br />
             <label>Password:</label>
-            <br />
             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-            <br />
             <label>Verify Password:</label>
-            <br />
             <input type="password" value={verifyPassword} onChange={(e) => setVerifyPassword(e.target.value)} />
-            <br />
             <label>Email:</label>
-            <br />
             <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
             <br />
             <button>Submit</button>
