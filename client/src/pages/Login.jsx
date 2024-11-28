@@ -17,7 +17,7 @@ export default function Login() {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const user = { username: username, password: password };
+        const user = { user_name: username, password: password };
         const result = await fetch(`${API_URL}/login`, {
             method: "POST",
             headers: {
@@ -33,22 +33,22 @@ export default function Login() {
             setError("something went wrong");
         } else {
             setError(null);
-            localStorage.setItem("currentUser", JSON.stringify({id: result.id, name: result.name, username: result.username, email: result.email}))
-            navigate(`/home/${user.username}`);
+            localStorage.setItem("currentUser", JSON.stringify({ id: result.id, name: result.name, username: result.user_name, email: result.email }))
+            navigate(`/home/${user.user_name}`);
         }
     }
 
     return (
         <form className="login-form" onSubmit={handleSubmit}>
             <h1 className="inside-form">Login</h1>
-            <label className="inside-form">Username:</label><br/>
+            <label className="inside-form">Username:</label><br />
             <input
                 className="inside-form"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
             />
             <br />
-            <label className="inside-form">Password:</label><br/>
+            <label className="inside-form">Password:</label><br />
             <input
                 className="inside-form"
                 value={password}

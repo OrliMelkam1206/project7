@@ -7,10 +7,10 @@ export default function HomeLayout() {
   const [user, setUser] = useState({});
   const userId = JSON.parse(localStorage.getItem("currentUserId"));
 
-  useEffect(() => {
-    (async () =>
-      await fetchData(`users/${userId}`, "name", setUser, setError))();
-  }, []);
+  // useEffect(() => {
+  //   (async () =>
+  //     await fetchData(`users/${userId}`, "name", setUser, setError))();
+  // }, []);
 
   return (
     <>
