@@ -74,7 +74,7 @@ export default function Todo({ todo, setTodoArr }) {
 
     return (
 
-        <div >
+        <div className="todo-div">
             <p>{todo.title}
                 <input type="checkbox" onChange={handleCheckChange}
                     checked={todo.completed === 0 ? false : true}

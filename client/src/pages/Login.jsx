@@ -32,7 +32,7 @@ export default function Login() {
         if (result.status !== 200) {
             setError(await result.text());
         }
-        }
+
         //else if (result.status === 404) {
         //     setError("something went wrong");
         // } 
@@ -47,30 +47,31 @@ export default function Login() {
         }
     }
 
-    return (
-        <form className="login-form" onSubmit={handleSubmit}>
-            <h1 className="inside-form">Login</h1>
-            <label className="inside-form">Username:</label><br/>
-            <input
-                className="inside-form"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-            />
-            <br />
-            <label className="inside-form">Password:</label>
-            <input
-                type='password'
-                className="inside-form"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-            />
-            <br />
-            <button className="inside-form">Submit</button>
-            <br />
-            <Link className="inside-form" to="/register">
-                Sign Up
-            </Link>
-            <p className="inside-form">{error}</p>
-        </form>
-    );
+
+return (
+    <form className="login-form" onSubmit={handleSubmit}>
+        <h1 className="inside-form">Login</h1>
+        <label className="inside-form">Username:</label><br />
+        <input
+            className="inside-form"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+        />
+        <br />
+        <label className="inside-form">Password:</label>
+        <input
+            type='password'
+            className="inside-form"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+        />
+        <br />
+        <button className="inside-form">Submit</button>
+        <br />
+        <Link className="inside-form" to="/register">
+            Sign Up
+        </Link>
+        <p className="inside-form">{error}</p>
+    </form>
+);
 }

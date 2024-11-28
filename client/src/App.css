@@ -89,7 +89,21 @@
   margin-right: 5px;
   margin-left: 5px;
 }
+.todos-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.todo-div {
+  background-color: #ffeff5;
+  width: 30vw;
+  margin-top: 10px;
+  border-radius: 20px;
+}
+.todo-div p{
+  font-size: 20px;
 
+}
 /* Style the navbar container */
 .navbar {
   display: flex;

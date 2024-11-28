@@ -3,7 +3,7 @@ import Todo from "../components/Todo";
 
 export default function Todos() {
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-
+    const [add, setAdd] = useState(false);
     const [todoArr, setTodoArr] = useState([]);
     const [newTodo, setNewTodo] = useState({});
     const todosIsEmpty = todoArr.length === 0;
@@ -47,7 +47,7 @@ export default function Todos() {
             if (!res.ok) throw Error("unable to add todo");
             const newId = await res.json();
             setTodoArr(prev => [...prev, { id: newId, title: newTodo.title, completed: 0, user_id: currentUser.id }]);
-
+            setAdd(false)
         }
         catch (err) {
             console.log(err);
@@ -60,9 +60,18 @@ export default function Todos() {
     return (
         <>
             <h1>Todos</h1>
-
+            <button onClick={() => setAdd(prev => !prev)}>add</button>
+            {add && <form onSubmit={handleAddTodo}>
+                <label>
+                    Title: 
+                    <input type="text" name="title" value={newTodo.title || ""} onChange={handleInputChange} />
+                </label>
+                <br />
+                <button>submit</button>
+            </form>
+}
             {!todosIsEmpty &&
-                <div>
+                <div className="todos-container">
                     {todoArr.map((todo) => {
                         return (
                             <Todo todo={todo}
@@ -74,16 +83,7 @@ export default function Todos() {
 
             }
             {todosIsEmpty && <p>Looks like you have no todos..</p>}
-
-            <form onSubmit={handleAddTodo}>
-                <label>
-                    Title:
-                    <input type="text" name="title" value={newTodo.title || ""} onChange={handleInputChange} />
-                </label>
-                <br />
-                <input type="submit" />
-            </form>
-
+            
 
 
         </>
