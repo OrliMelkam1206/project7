@@ -37,6 +37,26 @@ router.post('/', function (req, res, next) {
         console.log("post todo");
         res.send(`${result.insertId}`);
     });
-})
+});
+
+router.patch('/:todoId', function (req, res) {
+    //expected body: obj of colnames and new values.
+    const todoId = req.params.todoId;
+    console.log('todoId: ', todoId);
+
+    let sql = `update todo set `;
+    for (let key in req.body) {
+        if (typeof req.body[key] === "string") sql += ` ${key} = "${req.body[key]}" ,`;
+        else if (key === "completed") sql += ` ${key} = ${req.body[key] === false ? 0 : 1} ,`;
+        else sql += ` ${key} = ${req.body[key]} ,`;
+    }
+    sql = sql.slice(0, -1);
+    sql += ` where id = ${todoId}`;
+    con.query(sql, function (err, result) {
+        if (err) return res.status(400).send(err.message);
+        console.log("patch todo");
+        res.send(result);
+    });
+});
 
 module.exports = router;

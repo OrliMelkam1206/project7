@@ -39,8 +39,8 @@ export default function Login() {
             console.log("re: ", result)
             const data = await result.json();
             console.log('data: ', data);
-            localStorage.setItem("currentUser", JSON.stringify({ id: data.id, name: data.name, username: data.username, email: data.email }))
-            navigate(`/home/${user.username}`);
+            localStorage.setItem("currentUser", JSON.stringify({ id: data.id, name: data.name, user_name: data.user_name, email: data.email }))
+            navigate(`/home/${user.user_name}`);
         }
     }
 

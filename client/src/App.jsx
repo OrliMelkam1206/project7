@@ -5,8 +5,8 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import HomeLayout from "./pages/HomeLayout";
 import Posts from "./pages/Posts";
-// import Todos from "./pages/Todos";
-// import Info from "./pages/Info";
+import Todos from "./pages/Todos";
+import Info from "./pages/Info";
 
 function App() {
   return (
