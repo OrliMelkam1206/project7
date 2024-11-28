@@ -5,7 +5,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import HomeLayout from "./pages/HomeLayout";
 import Posts from "./pages/Posts";
-// import Todos from "./pages/Todos";
+import Todos from "./pages/Todos";
 import Info from "./pages/Info";
 
 function App() {
@@ -18,8 +18,8 @@ function App() {
             <Route path="register" element={<Register />} />
             <Route path="home/:id/" element={<HomeLayout />}>
               <Route path="posts" element={<Posts />} />
-              {/* <Route path="todos" element={<Todos />} />*/}
-              <Route path="info" element={<Info />} />  
+              <Route path="todos" element={<Todos />} />
+              <Route path="info" element={<Info />} />
             </Route>
           </Route>
         </Routes>

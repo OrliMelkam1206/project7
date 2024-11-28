@@ -17,8 +17,7 @@ export default function Login() {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const user = { username: username, password: password };
-        console.log('user: ', user);
+        const user = { user_name: username, password: password };
         const result = await fetch(`${API_URL}/login`, {
             method: "POST",
             headers: {
@@ -28,15 +27,18 @@ export default function Login() {
             body: JSON.stringify(user),
         });
 
+
         console.log('result: ', result, result.status);
         if (result.status !== 200) {
             setError(await result.text());
+        }
         }
         //else if (result.status === 404) {
         //     setError("something went wrong");
         // } 
         else {
             setError(null);
+            console.log("re: ", result)
             console.log("re: ", result)
             const data = await result.json();
             console.log('data: ', data);
@@ -48,7 +50,7 @@ export default function Login() {
     return (
         <form className="login-form" onSubmit={handleSubmit}>
             <h1 className="inside-form">Login</h1>
-            <label className="inside-form">Username:</label>
+            <label className="inside-form">Username:</label><br/>
             <input
                 className="inside-form"
                 value={username}
