@@ -10,12 +10,16 @@ var con = mysql.createConnection({
 });
 
 const isValid = (user) => {
+  console.log('user2: ', user);
+  console.log(user.username.length)
   if (user.username.length < 2 || user.password.length < 6) return "username should contains at least 2 charscters and password should contains 6 characters";
   if (!user.email.includes('@')) return "this email is not valid";
   return true;
 }
 const isExist = (user) => {
-  const sql = `SELECT username FROM user WHERE user_name=${user.username}`;
+  console.log('user: ', user);
+  const sql = `SELECT * FROM user WHERE user_name='${user.username}'`;
+  console.log('sql: ', sql);
   con.query(sql, function (err, result) {
     if (err) return (err.message);
     console.log("get user");
@@ -29,7 +33,9 @@ router.post('/', function (req, res, next) {
   const newUser = req.body;
   const validation = isValid(newUser);
   if (validation !== true) return res.status(400).send(validation);
-  if (isExist(newUser)) return res.status(400).send("this username is already exist");
+  const exist = isExist(newUser);
+  console.log('exist: ', exist);
+  if (exist) return res.status(400).send("this username is already exist");
   let userId = 0;
   const sql = `INSERT INTO user (name, user_name, email) VALUES ('${newUser.name}', '${newUser.username}', '${newUser.email}')`;
   con.query(sql, function (err, result) {
@@ -42,7 +48,12 @@ router.post('/', function (req, res, next) {
       if (err) return res.status(400).send(err.message);
       console.log("userid:" + userId);
       console.log("post password");
-      res.send();
+      res.send(JSON.stringify({
+        username: newUser.username,
+        name: newUser.name,
+        email: newUser.email,
+        id: userId
+    }));
     });
   });
 

@@ -23,12 +23,12 @@ router.get('/', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
     const newPost = req.body;
-    const sql = `INSERT INTO post (title, user_id, body) VALUES ('${newPost.title}', ${newPost.user_id}, '${newPost.body}')`;
+    const sql = `INSERT INTO post (title, user_id, body) VALUES ('${newPost.title}', ${newPost.userId}, '${newPost.body}')`;
     con.query(sql, function (err, result) {
         if (err) return res.status(400).send(err.message);
         console.log('result: ', result.insertId);
         console.log("post post");
-        res.send(result.insertId);
+        res.send(result);
     });
 })
 

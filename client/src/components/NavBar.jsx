@@ -15,9 +15,6 @@ export default function NavBar() {
       <Link to="posts">
         <button>Posts</button>
       </Link>
-      <Link to="albums">
-        <button>Albums</button>
-      </Link>
       <Link to="/" replace>
         <button onClick={handleDeleteLS}>Logout</button>
       </Link>

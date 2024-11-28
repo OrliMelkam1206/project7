@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import Todo from "../components/Todo";
+
 export default function Todos() {
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
@@ -10,7 +12,7 @@ export default function Todos() {
         (async () => {
             try {
 
-                const res = await fetch(`http://localhost:3500/todos?user_id=${currentUser.id}`);
+                const res = await fetch(`http://localhost:3000/todos?user_id=${currentUser.id}`);
                 if (!res.ok) throw Error("couldn't get todos");
                 setTodoArr(await res.json());
 
@@ -31,7 +33,7 @@ export default function Todos() {
     async function handleAddTodo(e) {
         e.preventDefault();
         try {
-            const res = await fetch(`http://localhost:3500/todos?user_id=${currentUser.id}`,
+            const res = await fetch(`http://localhost:3000/todos?user_id=${currentUser.id}`,
                 {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -62,10 +64,11 @@ export default function Todos() {
             {!todosIsEmpty &&
                 <div>
                     {todoArr.map((todo) => {
-                        return (<div key={todo.id}>
-                            <p>{todo.title} | completed: {todo.completed === 0 ? "no" : "yes"}</p>
-
-                        </div>)
+                        return (
+                            <Todo todo={todo}
+                                setTodoArr={setTodoArr}
+                                key={todo.id} />
+                        )
                     })}
                 </div>
 

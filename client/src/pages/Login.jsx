@@ -26,15 +26,21 @@ export default function Login() {
             },
             body: JSON.stringify(user),
         });
-        console.log(result.status);
-        if (result.status === 400) {
-            setError("username or password are incorrect");
-        } else if (result.status === 404) {
-            setError("something went wrong");
-        } else {
+
+        console.log('result: ', result, result.status);
+        if (result.status !== 200) {
+            setError(await result.text());
+        }
+        //else if (result.status === 404) {
+        //     setError("something went wrong");
+        // } 
+        else {
             setError(null);
-            localStorage.setItem("currentUser", JSON.stringify({ id: result.id, name: result.name, username: result.user_name, email: result.email }))
-            navigate(`/home/${user.user_name}`);
+            console.log("re: ", result)
+            const data = await result.json();
+            console.log('data: ', data);
+            localStorage.setItem("currentUser", JSON.stringify({ id: data.id, name: data.name, username: data.username, email: data.email }))
+            navigate(`/home/${user.username}`);
         }
     }
 
